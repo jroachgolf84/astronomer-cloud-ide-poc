@@ -1,14 +1,10 @@
 # Astro Cloud IDE POC
 
----
-
 - Author: Jake Roach
 - Date: 2023-11-18
 
 
 ## Summary
-
----
 
 To illustrates the power of the Astro Cloud IDE, I created a POC using the Astro Cloud IDE to pull a basket of stocks (using the Polygon API), storing these stocks using a dataset, and writing them to an RDS endpoint in AWS. This POC leverages a few tools (native to Astro), that I haven’t used in the past:
 
@@ -18,8 +14,6 @@ To illustrates the power of the Astro Cloud IDE, I created a POC using the Astro
 This document outlines the steps that I took to build out the project and the pipeline in the Astro Cloud IDE. Enjoy!
 
 ## Building out the Pipeline
-
----
 
 To create this POC, I used a free trial of Astro Cloud, as well as a free-tier AWS account. I had already had the AWS account spun up, but I don’t think that it took more than 60 seconds get set up in Astro Cloud (impressive). For reference (and I know that the services are different in nature), it took hours for Delaware North to spin up our Databricks workspaces earlier this year…
 
@@ -40,8 +34,6 @@ While I was fishing around in this part of the UI, I also noticed the “Require
 I took an ELT approach, so I could use the “Warehouse SQL” and “SQL” cells to transform my data in an RDS endpoint. These were incredibly easy to use, and saved me from having to create custom connectors, which is something that I’ve had to do in the past. Once I had built and tested the SQL cells, I connected a GitHub repo to my project, and committed the work that I had done. The process was easy as it gets, and from end-to-end, the entire project only took about 3 hours. A few things that I stumbled up on (one of which I mentioned above):
 
 ## Lessons Learned
-
----
 
 Working in the Astro Cloud IDE was a completely different experience than working in a traditional, managed-Airflow setting. I loved the data science-esque workflow, and the ease of working in an Airflow-lite environment. The coolest part was the process after I had created my pipeline in the IDE; with just a few clicks of a button, I was basically ready to ship my pipeline into an Astronomer deployment. Pretty darn nifty!
 
