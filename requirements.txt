@@ -1,0 +1,3 @@
+astro-sdk-python[amazon,databricks,duckdb,google,postgres,snowflake]==1.5.3
+
+requests==2.31.0
