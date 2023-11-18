@@ -1,46 +1,50 @@
-Overview
-========
+# Astro Cloud IDE POC
 
-Welcome to Astronomer! This project was generated after you ran 'astro dev init' using the Astronomer CLI. This readme describes the contents of the project, as well as how to run Apache Airflow on your local machine.
+---
 
-Project Contents
-================
+- Author: Jake Roach
+- Date: 2023-11-18
 
-Your Astro project contains the following files and folders:
 
-- dags: This folder contains the Python files for your Airflow DAGs. By default, this directory includes an example DAG that runs every 30 minutes and simply prints the current date. It also includes an empty 'my_custom_function' that you can fill out to execute Python code.
-- Dockerfile: This file contains a versioned Astro Runtime Docker image that provides a differentiated Airflow experience. If you want to execute other commands or overrides at runtime, specify them here.
-- include: This folder contains any additional files that you want to include as part of your project. It is empty by default.
-- packages.txt: Install OS-level packages needed for your project by adding them to this file. It is empty by default.
-- requirements.txt: Install Python packages needed for your project by adding them to this file. It is empty by default.
-- plugins: Add custom or community plugins for your project to this file. It is empty by default.
-- airflow_settings.yaml: Use this local-only file to specify Airflow Connections, Variables, and Pools instead of entering them in the Airflow UI as you develop DAGs in this project.
+## Summary
 
-Deploy Your Project Locally
-===========================
+---
 
-1. Start Airflow on your local machine by running 'astro dev start'.
+To illustrates the power of the Astro Cloud IDE, I created a POC using the Astro Cloud IDE to pull a basket of stocks (using the Polygon API), storing these stocks using a dataset, and writing them to an RDS endpoint in AWS. This POC leverages a few tools (native to Astro), that I haven’t used in the past:
 
-This command will spin up 3 Docker containers on your machine, each for a different Airflow component:
+- Astro Cloud IDE
+- Datasets
 
-- Postgres: Airflow's Metadata Database
-- Webserver: The Airflow component responsible for rendering the Airflow UI
-- Scheduler: The Airflow component responsible for monitoring and triggering tasks
+This document outlines the steps that I took to build out the project and the pipeline in the Astro Cloud IDE. Enjoy!
 
-2. Verify that all 3 Docker containers were created by running 'docker ps'.
+## Building out the Pipeline
 
-Note: Running 'astro dev start' will start your project with the Airflow Webserver exposed at port 8080 and Postgres exposed at port 5432. If you already have either of those ports allocated, you can either stop your existing Docker containers or change the port.
+---
 
-3. Access the Airflow UI for your local Airflow project. To do so, go to http://localhost:8080/ and log in with 'admin' for both your Username and Password.
+To create this POC, I used a free trial of Astro Cloud, as well as a free-tier AWS account. I had already had the AWS account spun up, but I don’t think that it took more than 60 seconds get set up in Astro Cloud (impressive). For reference (and I know that the services are different in nature), it took hours for Delaware North to spin up our Databricks workspaces earlier this year…
 
-You should also be able to access your Postgres Database at 'localhost:5432/postgres'.
+ It was a little bit weird not using a dedicated deployment, but I created a project that included sample pipelines, so I could get a feel for the experience. Already, I could tell that the use-cases where going to be numerous. This is EXACTLY the kind of tool that Data Scientists and skilled Data Analysts would be drooling over. I thought it was smart to call the processes created and defined in the Cloud IDE “pipelines”, rather than “DAGs”. All data professionals know what a data pipeline. DAGs add an additional layer of complexity that isn’t needed for this type of product.
 
-Deploy Your Project to Astronomer
-=================================
+One of the things that was really easy and neat was storing environment variables. I created a Polygon API token, which I wanted to store as a masked Airflow variable. 30 second later, I was done. I then typed the following code:
 
-If you have an Astronomer account, pushing code to a Deployment on Astronomer is simple. For deploying instructions, refer to Astronomer documentation: https://docs.astronomer.io/cloud/deploy-code/
+```python
+import os
 
-Contact
-=======
+POLYGON_API_KEY: str = os.getenv("POLYGON_API_KEY")
+```
 
-The Astronomer CLI is maintained with love by the Astronomer team. To report a bug or suggest a change, reach out to our support team: https://support.astronomer.io/
+Boom - environment variable securely store. No need to configure AWS Secrets Manager, or another secrets backend.
+
+While I was fishing around in this part of the UI, I also noticed the “Requirements” and “Connection” section - very cool “lite” versions of the same tooling in a traditional Airflow deployment. I added `requests` to the requirements section, and then almost opened a tab to find the version to “pin” the requirement. Before I could, I noticed this was already populated in a drop-down by in the UI. Come on, that’s awesome.
+
+I took an ELT approach, so I could use the “Warehouse SQL” and “SQL” cells to transform my data in an RDS endpoint. These were incredibly easy to use, and saved me from having to create custom connectors, which is something that I’ve had to do in the past. Once I had built and tested the SQL cells, I connected a GitHub repo to my project, and committed the work that I had done. The process was easy as it gets, and from end-to-end, the entire project only took about 3 hours. A few things that I stumbled up on (one of which I mentioned above):
+
+## Lessons Learned
+
+---
+
+Working in the Astro Cloud IDE was a completely different experience than working in a traditional, managed-Airflow setting. I loved the data science-esque workflow, and the ease of working in an Airflow-lite environment. The coolest part was the process after I had created my pipeline in the IDE; with just a few clicks of a button, I was basically ready to ship my pipeline into an Astronomer deployment. Pretty darn nifty!
+
+One thing that I struggled on was using some of the variables that I rely on when building DAGs in the traditional Airflow environment. For example, I wanted to use the `ds` variable when building URLs for my calls to the Polygon API. However, I couldn’t quite figure this out, even after about an hour on Google.
+
+Once I had wrapped up my `pull_market_data` project, I wanted to remove the “example” pipeline that had been created when I my project. I stumbled around on this, and eventually did it a “backdoor” way. I cloned the repo locally, and removed the DAG-file that had been created in the `dags/` directory. However, while this removed the DAG from my Airflow project, it was still showing in my Astronomer project.
