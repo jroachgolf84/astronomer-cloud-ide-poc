@@ -6,10 +6,10 @@
 
 ## Summary
 
-To illustrates the power of the Astro Cloud IDE, I created a POC using the Astro Cloud IDE to pull a basket of stocks (using the Polygon API), storing these stocks using a dataset, and writing them to an RDS endpoint in AWS. This POC leverages a few tools (native to Astro), that I haven’t used in the past:
+To illustrates the power of the Astro Cloud IDE, I created a POC using the Astro Cloud IDE to pull a basket of stocks (using the Polygon API), storing these stocks as a DataFrame, and writing them to an RDS endpoint in AWS. This POC leverages a few tools (native to Astro), that I haven’t used in the past:
 
 - Astro Cloud IDE
-- Datasets
+- Astro Python SDK
 
 This document outlines the steps that I took to build out the project and the pipeline in the Astro Cloud IDE. Enjoy!
 
