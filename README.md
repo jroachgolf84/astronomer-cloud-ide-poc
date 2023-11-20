@@ -30,8 +30,6 @@ It was a little bit weird not having to spin up a deployment, but I created a "P
 One of the things that was really easy was storing environment variables. I created a Polygon API token, which I wanted to store as a masked Airflow variable. 30 seconds later, I was done. I then typed the following code in a Python cell:
 
 ```python
-import os
-
 POLYGON_API_KEY: str = Variable.get("POLYGON_API_KEY")
 ```
 
