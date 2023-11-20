@@ -32,7 +32,7 @@ One of the things that was really easy was storing environment variables. I crea
 ```python
 import os
 
-POLYGON_API_KEY: str = os.getenv("POLYGON_API_KEY")
+POLYGON_API_KEY: str = Variable.get("POLYGON_API_KEY")
 ```
 
 Boom - environment variable securely stored. No need to configure AWS Secrets Manager, or another secrets backend.
