@@ -33,7 +33,7 @@ One of the things that was really easy was storing environment variables. I crea
 POLYGON_API_KEY: str = Variable.get("POLYGON_API_KEY")
 ```
 
-Boom - environment variable securely stored. No need to configure AWS Secrets Manager, or another secrets backend.
+Just like that, Airflow variable stored and masked. No need to configure AWS Secrets Manager, or another secrets backend.
 
 While I was fishing around in this part of the UI, I also noticed the “Requirements” and “Connection” section - very cool “lite” versions of the same tooling in a traditional Airflow deployment. I added `requests` to the requirements section, and then almost opened a web-browser tab to find the version to “pin” the requirement. Before I could, I noticed this was already populated in a drop-down by in the UI. Come on, that’s awesome. When I later added a Postgres cell, the "Requirements" section was updated without a single click. Awesome functionality for non-data engineers looking to build production-grade data pipelines.
 
