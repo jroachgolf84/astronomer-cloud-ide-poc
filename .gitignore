@@ -3,3 +3,4 @@
 .idea/
 airflow_settings.yaml
 astro
+*/__pycache/
