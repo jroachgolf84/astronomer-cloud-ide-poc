@@ -55,8 +55,7 @@ def load_stock_data_func(extract_stock_data: Table):
     return """
     -- Insert all data with a basic select statement
     SELECT * FROM {{extract_stock_data}}
-    WHERE status = 'OK'
-    ;
+    WHERE status = 'OK';
     """
 
 default_args={
@@ -112,8 +111,7 @@ def pull_market_data():
                     low,
                     high
                 FROM raw_open_close
-                WHERE "from" = '{{var.value.DS}}'
-            ;"""),
+                WHERE "from" = '{{var.value.DS}}';"""),
         postgres_conn_id="jroachgolf84-sandbox-postgres",
         task_id="curate_stock_data",
     )
