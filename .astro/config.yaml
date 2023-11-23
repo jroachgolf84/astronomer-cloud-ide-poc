@@ -1,2 +1,4 @@
 project:
-  name: jroachgolf84polygonsandbox
+  name: jroachgolf84-sandbox
+
+skip_parse: true
