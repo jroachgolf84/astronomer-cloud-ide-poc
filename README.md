@@ -120,7 +120,7 @@ astro dev run connections add \
     --conn-type postgres \
     --conn-host jroachgolf84-sandbox-postgres.ciz3ssohle2n.us-east-1.rds.amazonaws.com \
     --conn-login jroachgolf84 \
-    --conn-password 'Jr355641!!' \
+    --conn-password '*****' \
     --conn-port 5432 \
     --conn-schema postgres \
     jroachgolf84-sandbox-postgres
@@ -160,6 +160,25 @@ I used the results of the `astro deployment list` command to provide the `<deplo
  took about 90 seconds, but the deployment was eventually updated with my code changes!
 
 ### Update the Variables and Connection in my Astro deployment
-This was done manually, using the UI. The Astro CLI can be used to create environment-level variables for a Deployment,
- but not Airflow variables. The `POLYGON_API_KEY` Variable and the `jroachgolf84-sandbox-postgres` Connection were
- created using the UI.
+To create the Variables and Connections using the Astro CLI, the commands below were run:
+
+```commandline
+astro deployment airflow-variable list -d clpakrl6l1094080hk3a2f654qlk
+astro deployment airflow-variable create -d clpakrl6l1094080hk3a2f654qlk --key POLYGON_API_KEY --value *****
+astro deployment airflow-variable list -d clpakrl6l1094080hk3a2f654qlk
+```
+
+```commandline
+astro deployment connection list -d clpakrl6l1094080hk3a2f654qlk
+astro deployment connection create \
+    --conn-id jroachgolf84-sandbox-postgres
+    --conn-type postgres \
+    --host jroachgolf84-sandbox-postgres.ciz3ssohle2n.us-east-1.rds.amazonaws.com \
+    --login jroachgolf84 \
+    --password '*****' \
+    --port 5432 \
+    --schema postgres
+astro deployment connection list -d clpakrl6l1094080hk3a2f654qlk
+```
+
+The Variable and Connection were validated in the UI, after creation.
