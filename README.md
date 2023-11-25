@@ -182,3 +182,5 @@ astro deployment connection list -d clpakrl6l1094080hk3a2f654qlk
 ```
 
 The Variable and Connection were validated in the UI, after creation. On the first run, the DAGs executed successfully!
+ In the future, I'd like to configure CI/CD with GitHub actions, to make the deployment process more governed and
+ stringent.
