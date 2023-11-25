@@ -102,15 +102,15 @@ There are two variables that initially needed to be created to get my DAGs up an
  appropriate manner). This was done, locally, with the following commands:
 
 ```commandline
-astro dev run variable list
-astro dev run variable set POLYGON_API_KEY *****
-astro dev run variable list
+astro dev run variables list
+astro dev run variables set POLYGON_API_KEY *****
+astro dev run variables get POLYGON_API_KEY
 ```
 
 ```commandline
-astro dev run variable list
-astro dev runv ariable set DS 2023-11-17
-astro dev run variable list
+astro dev run variables list
+astro dev run variables set DS 2023-11-17
+astro dev run variables get DS
 ```
 
 To create the connection to the RDS (Postgres instance) used throughout the DAG, the following CLI commands where run:
@@ -118,12 +118,14 @@ To create the connection to the RDS (Postgres instance) used throughout the DAG,
 ```commandline
 astro dev run connections list
 astro dev run connections add \
-    --connection-host jroachgolf84-sandbox-postgres.ciz3ssohle2n.us-east-1.rds.amazonaws.com \
-    --connection-login jroachgolf84 \
-    --connection-password ***** \
-    --connection-port 5432
-    --connection-schema postgres
-astro dev run connections list
+    --conn-type postgres \
+    --conn-host jroachgolf84-sandbox-postgres.ciz3ssohle2n.us-east-1.rds.amazonaws.com \
+    --conn-login jroachgolf84 \
+    --conn-password 'Jr355641!!' \
+    --conn-port 5432 \
+    --conn-schema postgres \
+    jroachgolf84-sandbox-postgres
+astro dev run connections list -o plain
 ```
 
 
