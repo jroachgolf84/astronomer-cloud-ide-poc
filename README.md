@@ -170,7 +170,7 @@ astro deployment airflow-variable list -d clpakrl6l1094080hk3a2f654qlk
 
 ```commandline
 astro deployment connection list -d clpakrl6l1094080hk3a2f654qlk
-astro deployment connection create \
+astro deployment connection create -d clpakrl6l1094080hk3a2f654qlk \
     --conn-id jroachgolf84-sandbox-postgres
     --conn-type postgres \
     --host jroachgolf84-sandbox-postgres.ciz3ssohle2n.us-east-1.rds.amazonaws.com \
