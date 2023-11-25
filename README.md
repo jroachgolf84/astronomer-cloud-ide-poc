@@ -181,4 +181,4 @@ astro deployment connection create -d clpakrl6l1094080hk3a2f654qlk \
 astro deployment connection list -d clpakrl6l1094080hk3a2f654qlk
 ```
 
-The Variable and Connection were validated in the UI, after creation.
+The Variable and Connection were validated in the UI, after creation. On the first run, the DAGs executed successfully!
