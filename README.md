@@ -91,7 +91,6 @@ Once the Astro Cloud IDE has been used to create the initial `.py` file to insta
 - Configure and create an Astro deployment
 - Deploy my repo using the Astro CLI
 - Update the Variables and Connection in my Astro deployment
-- Configure CI/CD with GitHub Actions
 
 In this section, I'll outline the steps that I took and the commands that ran to accomplish each step listed above.
 
@@ -149,9 +148,18 @@ Following the creation of the deployment, I authenticated locally with the Astro
  This would allow for me to configure the deployment as needed, in the following steps.
 
 ### Deploy my repo using the Astro CLI
+After merging changes from my feature branch to the `main` branch, I pulled down the `main` branch locally, and deployed
+ it using the Astro CLI. To do this, I ran the following two commands:
+
+```commandline
+astro deployment list
+astro deploy <deployment-id>
+```
+
+I used the results of the `astro deployment list` command to provide the `<deployment-id>` for the `deploy` command. It
+ took about 90 seconds, but the deployment was eventually updated with my code changes!
 
 ### Update the Variables and Connection in my Astro deployment
-
-### Configure CI/CD with GitHub Actions
-
-
+This was done manually, using the UI. The Astro CLI can be used to create environment-level variables for a Deployment,
+ but not Airflow variables. The `POLYGON_API_KEY` Variable and the `jroachgolf84-sandbox-postgres` Connection were
+ created using the UI.
