@@ -102,15 +102,15 @@ There are two variables that initially needed to be created to get my DAGs up an
  appropriate manner). This was done, locally, with the following commands:
 
 ```commandline
-astro dev run variable list
-astro dev run variable set POLYGON_API_KEY *****
-astro dev run variable list
+astro dev run variables list
+astro dev run variables set POLYGON_API_KEY *****
+astro dev run variables get POLYGON_API_KEY
 ```
 
 ```commandline
-astro dev run variable list
-astro dev runv ariable set DS 2023-11-17
-astro dev run variable list
+astro dev run variables list
+astro dev run variables set DS 2023-11-17
+astro dev run variables get DS
 ```
 
 To create the connection to the RDS (Postgres instance) used throughout the DAG, the following CLI commands where run:
@@ -118,12 +118,40 @@ To create the connection to the RDS (Postgres instance) used throughout the DAG,
 ```commandline
 astro dev run connections list
 astro dev run connections add \
-    --connection-host jroachgolf84-sandbox-postgres.ciz3ssohle2n.us-east-1.rds.amazonaws.com \
-    --connection-login jroachgolf84 \
-    --connection-password ***** \
-    --connection-port 5432
-    --connection-schema postgres
-astro dev run connections list
+    --conn-type postgres \
+    --conn-host jroachgolf84-sandbox-postgres.ciz3ssohle2n.us-east-1.rds.amazonaws.com \
+    --conn-login jroachgolf84 \
+    --conn-password 'Jr355641!!' \
+    --conn-port 5432 \
+    --conn-schema postgres \
+    jroachgolf84-sandbox-postgres
+astro dev run connections list -o plain
 ```
+
+### Refactor my DAG definitions to properly use the `ds` templated field
+While I wasn't able to pull the `ds` templated field using the Astro Cloud IDE (even using the `get_current_context` 
+ function), it was easy to do when editing the `.py` file directly. After I made changes, I tested the changes. Since
+ the `DS` variables was no longer needed, that was removed using the command 
+ `astro dev run connections delete jroachgolf84-sandbox-postgres`.
+
+### Configure and create an Astro deployment
+Now that I had a DAG running locally, it was time to create a deployment in the Astro UI. I did this using the UI, and
+ configured with the following specs:
+
+- Celery Executor
+- A5 Worker Type
+  - Min # workers = 0
+  - Max # workers = 2
+  - Concurrency = 2
+- Small Scheduler
+
+Following the creation of the deployment, I authenticated locally with the Astro CLI, using the `astro login` command. 
+ This would allow for me to configure the deployment as needed, in the following steps.
+
+### Deploy my repo using the Astro CLI
+
+### Update the Variables and Connection in my Astro deployment
+
+### Configure CI/CD with GitHub Actions
 
 
