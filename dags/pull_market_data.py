@@ -31,8 +31,7 @@ def extract_stock_data_func():
     # Create a list of stock tickers to loop through
     stock_tickers: List[str] = [
         "AAPL",
-        "AMZN",
-        "CHPT"
+        "AMZN"
     ]
     
     # Set variables
